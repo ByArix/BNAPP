@@ -1,0 +1,36 @@
+<body>
+    <header>
+        <script src="./js/jquery.js"></script>
+        <link rel="stylesheet" href="./css/principal.css">
+        <script type="application/javascript">
+            function getimage(){
+              let attempt=''
+              let yourUrl='http://localhost:3000/show'
+              $.getJSON(yourUrl, function(data) {
+              // JSON result in `data` variable
+              for(var i = 0; i < data.length; i++) {
+                var obj = data[i];
+                attempt=obj.file_data
+                console.log(btoa(attempt))
+                let imagendw='<img src="data:image/png;base64,'+btoa(attempt)+'" alt="Red dot" />'
+                document.getElementById('prueba').innerHTML = imagendw;
+              }})
+              console.log(attempt)
+            }
+        </script>
+    </header>
+    <div class="header">
+        <a href="#default" class="logo">CompanyLogo</a>
+        <div class="header-right">
+          <a href="#home">Inicio</a>
+          <a class="active"  href="#contact">Oportunidades</a>
+          <a href="#about">Contacto</a>
+        </div>
+      </div>
+      <button type="button" onClick='getimage()'>Click Me!</button>
+      <div class="prueba" id="prueba">
+      </div>
+
+
+</body>
+</html>

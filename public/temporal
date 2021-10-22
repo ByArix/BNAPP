@@ -1,0 +1,6 @@
+const base64String = btoa(String.fromCharCode(...new Uint8Array(obj.file_data)));
+let myImages = '<img src="'+obj.file_data+'" />';
+console.log(base64String)
+let img2 ='<img src={`data:image/png;base64,${'+base64String+'`} alt=""/>'
+console.log(img2)
+document.getElementById('bestc').innerHTML = img2;

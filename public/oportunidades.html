@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <header>
+        <script src="./js/jquery.js"></script>
+        <link rel="stylesheet" href="./css/principal.css">
+        <script type="application/javascript">
+          function Get(yourUrl,list,start){
+            console.log(yourUrl,list,start)
+            $.getJSON(yourUrl, function(data) {
+              // JSON result in `data` variable
+              console.log(data)
+              for(var i = 0; i < data.length; i++) {
+                var obj = data[i];
+                if(start==0){
+                  addOption(obj.Nombre,obj.Cod,list)
+                }
+                if(start==1){
+                  addOption(obj.Nombre,obj.Canton,list)
+                }
+                
+              }
+          });          
+        }
+        function addOption(texto,valor,list) {
+            optionText = texto;
+            optionValue = valor;
+  
+            $('#'+list+'').append(`<option value="${optionValue}">
+              ${optionText}
+              </option>`);
+        }
+ 
+          $(document).ready(function(){
+          $('#provincias').change(function(){
+          console.log(this.value,'http://localhost:3000/cantones?id='+this.value);
+          $("#cantones").empty();
+          Get('http://localhost:3000/cantones?id='+this.value,'cantones',1)
+          });
+          });
+          window.addEventListener('load', function () {
+            Get('http://localhost:3000/provincias','provincias',0)
+            Get('http://localhost:3000/cantones?id=2','cantones',1)
+            
+          })
+        </script>
+    </header>
+    <div class="header">
+        <a href="#default" class="logo">CompanyLogo</a>
+        <div class="header-right">
+          <a href="#home">Inicio</a>
+          <a class="active"  href="#contact">Oportunidades</a>
+          <a href="#about">Contacto</a>
+        </div>
+      </div>
+      <div class="bestc">
+      <form action='oportunidadesselected.html'>
+        <label>Selecciona una provincia</label>
+        <select name="provincias" id="provincias">
+          </select>
+          <label>Selecciona un canton</label>
+        <select name="cantones" id="cantones"></select>
+          <input type="submit" value="Submit">
+      </form>
+      </div>
+
+
+</body>
+</html>
